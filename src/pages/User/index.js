@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
 import api from '../../services/api';
 
-// import { Container } from './styles';
+import { Container, Header, Avatar, Name, Bio } from './styles';
 
 export default class User extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -30,8 +29,27 @@ export default class User extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     const { stars } = this.state;
 
-    return <View />;
+    const user = navigation.getParam('user');
+
+    return (
+      <Container>
+        <Header>
+          <Avatar source={{ uri: user.avatar }} />
+          <Name>{user.name}</Name>
+          <Bio>{user.bio}</Bio>
+        </Header>
+
+        <Stars
+          data={stars}
+          keyExtractor={star =>String(star.id)}
+          renderItem={({ item }) => (
+
+          )}
+        />
+      </Container>
+    );
   }
 }
